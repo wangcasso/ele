@@ -7,6 +7,8 @@ import Discovery from "@/page/discovery"
 import Cartlist from "@/page/cartlist"
 import Mine from "@/page/mine"
 import ChangeLocation from "@/page/changelocation"
+import Login from "@/page/login"
+
 const routes =  [
     {
       path:'/home',
@@ -34,6 +36,11 @@ const routes =  [
       path:'/mine',
       name:'Mine',
       component:Mine
+    },
+    {
+      path:'/login',
+      name:'Login',
+      component: Login
     },
     {
       // path: '/',

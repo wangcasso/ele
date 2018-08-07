@@ -21,12 +21,12 @@ export default {};
   position: sticky;
   top: 0px;
   z-index: 9;
-  /* height:102.4px; */
+  height:102.4px;
 }
 .search {
   margin: -0.133333vw 0;
   padding: 2vw 3.733333vw;
-  /* position: absolute; */
+  position: absolute;
   width:100%;
 }
 .search>.context {
