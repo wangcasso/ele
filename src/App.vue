@@ -20,12 +20,25 @@ export default {
 </script>
 
 <style>
+.page{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 49px;
+  background: #fff;
+}
+.page.subpage{
+  bottom: 0;
+  z-index: 10;
+  
+}
 .tabs {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 9;
   display: flex;
   align-items: center;
   justify-content: space-between;

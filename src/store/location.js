@@ -1,6 +1,5 @@
 const state = {
-    longtitude: 114,
-    latitude: 23
+    addressName:"西部硅谷"
 }
 
 const getters = {
@@ -8,8 +7,8 @@ const getters = {
 }
 
 const mutations = {
-    modifyUsername(state, params){
-        console.log('location mutations 触发了');
+    modifyAddressName(state, params){
+        state.addressName=params.addressName
     }
 }
 
@@ -20,6 +19,8 @@ const actions = {
 }
 
 export default {
+    namespaced: true,
+
     state,
     getters,
     mutations,

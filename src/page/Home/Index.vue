@@ -1,15 +1,18 @@
 <template>
     <div>
+      <Scroll :onScroll="fixTop">
+        
       <!-- 定位信息 -->
-        <header class="location">
+        <header class="location" @click="checkPlace()">
             <div class="place">
                 <div class="place60">
-                    <span>@</span><span class='placeMsg'>禧福阁深圳西部硅谷</span>
+                    <span>@</span><span class='placeMsg'>{{$store.state.location.addressName}}</span>
                 </div>
             </div>
         </header>
+        
         <!-- 搜索按钮 -->
-        <SearchArea></SearchArea>
+        <SearchArea ref="search"></SearchArea>
         <!-- 商品列表轮播图 -->
         <Swiper></Swiper>
         <!-- 固定死的两张广告 -->
@@ -31,22 +34,41 @@
         </div>
         <!--  -->
         <div id="shoplist-title" class="shoplist-title">推荐商家</div>
+        <div class="long"></div>
+      </Scroll>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 import SearchArea from "@/components/common/SearchArea";
 import Swiper from "@/components/common/Swiper";
-
+import Scroll from "@/components/common/Scroll"
 export default {
   components: {
     SearchArea,
-    Swiper
+    Swiper,
+    Scroll
+  },
+  methods:{
+    checkPlace(){
+      this.$router.push({path:"/home/place"})
+      
+    },
+    fixTop(h){
+      if(h<=-89){
+        this.$refs.search.$el.children[0].style.top=-89-h+'px'
+        
+      }else{this.$refs.search.$el.children[0].style.top=0}
+    }
   }
 };
 </script>
 
 <style>
+.long{
+  height:10000px;
+}
 .location {
   background-image: linear-gradient(90deg, #0af, #0085ff);
   color: #fff;

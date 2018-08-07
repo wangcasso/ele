@@ -20,11 +20,14 @@ export default {};
   background-image: linear-gradient(90deg, #0af, #0085ff);
   position: sticky;
   top: 0px;
-  z-index: 999;
+  z-index: 9;
+  /* height:102.4px; */
 }
 .search {
   margin: -0.133333vw 0;
   padding: 2vw 3.733333vw;
+  /* position: absolute; */
+  width:100%;
 }
 .search>.context {
   display: flex;
