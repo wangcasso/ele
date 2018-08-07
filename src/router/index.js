@@ -6,6 +6,8 @@ import Home from "@/page/Home"
 import Discovery from "@/page/discovery"
 import Cartlist from "@/page/cartlist"
 import Mine from "@/page/mine"
+import Login from "@/page/login"
+
 const routes =  [
     {
       path:'/home',
@@ -26,6 +28,11 @@ const routes =  [
       path:'/mine',
       name:'Mine',
       component:Mine
+    },
+    {
+      path:'/login',
+      name:'Login',
+      component: Login
     },
     {
       // path: '/',

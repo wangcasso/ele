@@ -4,10 +4,22 @@
       <router-view/>
     </keep-alive>
     <nav class='tabs'>
-      <router-link class='tab' :to="{name:'Home'}">首页</router-link>
-      <router-link class='tab' :to="{name:'Discovery'}">发现</router-link>
-      <router-link class='tab' :to="{name:'Cartlist'}">订单</router-link>
-      <router-link class='tab' :to="{name:'Mine'}">我的</router-link>
+      <router-link class='tab iconfont' :to="{name:'Home'}"><p>&#xe722;</p>
+<p>首页</p>      
+      </router-link>
+      <router-link class='tab iconfont' :to="{name:'Discovery'}">
+        <p>&#xe60a;</p>
+<p>首页</p>      
+      </router-link>
+      <router-link class='tab iconfont' :to="{name:'Cartlist'}">
+        <p>&#xe606;</p>
+          <p>首页</p>
+        
+      </router-link>
+      <router-link class='tab iconfont' :to="{name:'Mine'}">
+        <p>&#xe609;</p>
+<p>首页</p>
+      </router-link>
     </nav>
   </div>
   
@@ -38,6 +50,9 @@ export default {
   display: block;
   flex: 1;
   text-align: center;
+  font-size: 50px;
+}
+.tab p:nth-child(2){
   font-size: 20px;
 }
 </style>
