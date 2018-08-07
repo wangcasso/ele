@@ -1,5 +1,6 @@
 <template>
     <div>
+      <!-- 定位信息 -->
         <header class="location">
             <div class="place">
                 <div class="place60">
@@ -7,8 +8,11 @@
                 </div>
             </div>
         </header>
+        <!-- 搜索按钮 -->
         <SearchArea></SearchArea>
+        <!-- 商品列表轮播图 -->
         <Swiper></Swiper>
+        <!-- 固定死的两张广告 -->
         <div class="fix">
           <div class="doubleBox">
             <div class="box_left">
@@ -25,6 +29,8 @@
             </div>
           </div>
         </div>
+        <!--  -->
+        <div id="shoplist-title" class="shoplist-title">推荐商家</div>
     </div>
 </template>
 
@@ -126,5 +132,30 @@ export default {
     bottom: -2vw;
     width: 32vw;
     height: 21.333333vw;
+}
+.shoplist-title{
+   
+    display: flex;
+  
+    align-items: center;
+   
+    justify-content: center;
+    height: .96rem;
+    height: 9.6vw;
+    font-size: 30px;
+    color: #000;
+}
+.shoplist-title:after, .shoplist-title:before {
+    display: block;
+    content: "";
+    width: 5.333333vw;
+    height: .266667vw;
+    background-color: #999;
+}
+.shoplist-title:before {
+    margin-right: 3.466667vw;
+}
+.shoplist-title:after {
+    margin-left: 3.466667vw;
 }
 </style>

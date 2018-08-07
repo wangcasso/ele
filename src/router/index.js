@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-import Home from "@/components/Home"
-import Discovery from "@/components/discovery"
-import Cartlist from "@/components/cartlist"
-import Mine from "@/components/mine"
+import Home from "@/page/Home"
+import Discovery from "@/page/discovery"
+import Cartlist from "@/page/cartlist"
+import Mine from "@/page/mine"
 const routes =  [
     {
       path:'/home',
