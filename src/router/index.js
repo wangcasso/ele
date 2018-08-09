@@ -35,12 +35,14 @@ const routes =  [
     {
       path:'/mine',
       name:'Mine',
-      component:Mine
-    },
-    {
-      path:'/login',
-      name:'Login',
-      component: Login
+      component:Mine,
+      children:[
+        {
+          path:'login',
+          name:'Login',
+          component: Login
+        }
+      ]
     },
     {
       // path: '/',

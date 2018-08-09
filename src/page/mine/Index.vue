@@ -4,7 +4,7 @@
     <a href="/">＜</a>
     <h1>我的</h1>
 </div>
-<div class="mine-login">
+<div class="mine-login" @click="login()">
  <div class="logo">
      <img src="../../../static/img/logo.png" alt="">
  </div>
@@ -32,7 +32,7 @@
 <a href="#"><span>&#xe6b7;</span>点击定位<p>＞</p></a>
 <a href="#"><span>&#xe722;</span>点击定位<p>＞</p></a>
 </div>
-
+<router-view></router-view>
 </div>
 
 
@@ -40,8 +40,12 @@
 
 <script>
 export default {
-
-}
+        methods : {
+      login(){
+          this.$router.push({path:"/mine/login"})
+      }
+        }
+    }
 </script>
 
 <style scopend>
