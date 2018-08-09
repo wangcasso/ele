@@ -2,7 +2,7 @@
 import axios from 'axios'
 import API from '../api'
 
-export function getRsetaurant(limit=20,offset=0){
+export function getRsetaurant(offset=0,limit=20){
     return new Promise((resolve,reject)=>{
 
         axios.get(API.RESTAURANT_API,{
@@ -12,7 +12,6 @@ export function getRsetaurant(limit=20,offset=0){
                 latitude:22.625775,
                 longitude:113.837865,
                 extra_filters:'home',
-                rank_id:'',
                 terminal:'h5',
             }
         })

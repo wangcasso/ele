@@ -4,6 +4,7 @@ Vue.use(Vuex);
 
 import userInfo from './userInfo.js'
 import location from './location.js'
+import restaurant from './restaurant.js'
 
 // 全局数据,全局状态
 const state = {
@@ -44,6 +45,7 @@ const store = new Vuex.Store({
     modules: {
         user: userInfo,
         location,
+        restaurant
     }
 });
 

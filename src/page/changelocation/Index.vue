@@ -74,7 +74,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 .slideInRight, .slideOutRight{
     animation-duration: 300ms;
 }

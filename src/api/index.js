@@ -20,7 +20,7 @@ const LOCATION_API = '/restapi/bgs/poi/search_poi_nearby_alipay';
         rank_id:空
         terminal:h5
 */
-const RESTAURANT_API = "/restapi/shopping/v3/restaurants?extras[]=activities&extras[]=tags"
+const RESTAURANT_API = "/restapi/shopping/v3/restaurants?extras[]=activities&extras[]=tags&rank_id=f649973d7127407e83c7a040ca425262"
 
 /*
 接口功能：获取首页分类轮播信息

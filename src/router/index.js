@@ -8,7 +8,7 @@ import Cartlist from "@/page/cartlist"
 import Mine from "@/page/mine"
 import ChangeLocation from "@/page/changelocation"
 import Login from "@/page/login"
-
+import Search from "@/page/search"
 const routes =  [
     {
       path:'/home',
@@ -21,6 +21,12 @@ const routes =  [
           component:ChangeLocation
         }
       ]
+    },
+    {
+      path:'/search',
+      name:'Search',
+      component:Search
+
     },
     {
       path:'/discovery',

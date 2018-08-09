@@ -11,7 +11,7 @@ export default {
                 return value
             }
         })
-        
+        //图片过滤
         Vue.filter("pic",(value,key)=>{
             let arr=value.split("")
             let newUrl=arr[0]+"/"+arr[1]+arr[2]+"/"+value.substr(3)

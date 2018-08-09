@@ -1,6 +1,6 @@
 <template>
     <div class="section">
-        <div class="item" v-for="item in data" :key="item.restaurant.id" >
+        <div class="item" v-for="(item,index) in data" :key="index" >
             <div class="up_shopInfo">
                 <div class="pic">
                     <img :src="item.restaurant.image_path|pic(130)" alt="">
@@ -80,23 +80,18 @@
 <script>
 import {getRsetaurant} from "@/services/restaurantService"
 export default {
+    props:{
+        getMore:""
+    },
     data(){
         return{
-            data:{},
+            Num:0,
+            data:[],
+            remine:this.$store.state.restaurant.lock
         }
     },
    
     methods:{
-        img(url){
-            let arr=url.split("")
-            let newUrl=arr[0]+"/"+arr[1]+arr[2]+"/"+url.substr(3)
-            let reg1=/jpeg$/
-            let reg2=/png$/
-            reg1.exec(url)?(newUrl+="."+reg1.exec(url)):(newUrl+="."+reg2.exec(url))
-            newUrl="https://fuss10.elemecdn.com/"+newUrl+"?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/"
-            return newUrl
-            // console.log(newUrl)
-        },
         showAct(i){
             i.restaurant.scheme==2?i.restaurant.scheme=100:i.restaurant.scheme=2
             this.$nextTick(()=>{
@@ -104,24 +99,36 @@ export default {
             })
             
             
-        }
-    },
-    created() {
-        
-    },
-    mounted() {
-        getRsetaurant().then((response)=>{
-            this.data=response.data.items
+        },
+        getMsg(){
+            getRsetaurant(this.Num,8).then((response)=>{
+            this.data=[...this.data,...response.data.items]
             // console.log(this.data)
-            for(let i=0;i<20;i++){
+            for(let i=this.Num;i<this.Num+8;i++){
                 this.data[i].restaurant.scheme=2
             }
             // console.log(response)
             this.$nextTick(()=>{
                 this.$emit('refresh')
+                this.Num+=8
+                this.$store.commit("restaurant/modifyAddressName",{lock:"开"})
+
             })
             
         })
+        }
+    },
+    watch:{
+        getMore:function(){
+            // console.log("监听到了")
+            if(this.$store.state.restaurant.lock=="关"){
+                this.getMsg()
+            }
+            
+        }
+    },
+    mounted() {
+        this.getMsg()
     },
 }
 </script>

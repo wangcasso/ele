@@ -33,6 +33,7 @@ export default {
 </script>
 
 <style>
+
 .page {
   width: 100%;
   position: absolute;

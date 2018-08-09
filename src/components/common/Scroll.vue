@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         refreshDOM(){
-            console.log("过来了")
+            // console.log("过来了")
             this.scroll.refresh();
         }
     },
@@ -30,12 +30,13 @@ export default {
             scrollbars: true,
             mouseWheel: true,
             fadeScrollbars: true,
-            moved:true,
+            // moved:true,
             probeType:this.onScroll?3:0
         });
 
         this.scroll.on('scroll',()=>{
-            this.onScroll(this.scroll.y)
+            this.onScroll(this.scroll.y,this.scroll.maxScrollY-this.scroll.y)
+            // console.log(this.scroll.maxScrollY-this.scroll.y)
         })
     },
 }

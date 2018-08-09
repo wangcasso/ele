@@ -1,5 +1,7 @@
 <template>
     <div>
+      <SearchArea v-show="search_show" class="search_fix" ref="search_fix"></SearchArea>
+      <Sort ref="sort_fix" class="sort_fix" v-show="sort_show"></Sort>
       <Scroll :onScroll="fixTop" class="scroll" ref="scroll">
         
       <!-- 定位信息 -->
@@ -12,7 +14,7 @@
         </header>
         
         <!-- 搜索按钮 -->
-        <SearchArea ref="search"></SearchArea>
+        <SearchArea ></SearchArea>
         <!-- 商品列表轮播图 -->
         <Swiper></Swiper>
         <!-- 固定死的两张广告 -->
@@ -35,7 +37,7 @@
         <!--  -->
         <div id="shoplist-title" class="shoplist-title">推荐商家</div>
         <Sort ref="sort"></Sort>
-          <OptionCard @refresh="getNew"></OptionCard>
+          <OptionCard @refresh="getNew" :getMore="forSon"></OptionCard>
         
         
       </Scroll>
@@ -46,29 +48,37 @@
 <script>
 import SearchArea from "@/components/common/SearchArea";
 import Swiper from "@/components/common/Swiper";
-import Sort from "@/components/common/Sort"
-import OptionCard from "@/components/common/OptionCard"
+
 export default {
+  data(){
+    return{
+      search_show:false,
+      sort_show:false,
+      forSon:"22"
+    }
+  },
   components: {
     SearchArea,
     Swiper,
-    Sort,
-    OptionCard,
   },
   methods:{
     checkPlace(){
       this.$router.push({path:"/home/place"})
-      
+   
     },
-    fixTop(h){
+    fixTop(h,y){
       if(h<=-89){
-        this.$refs.search.$el.children[0].style.top=-89-h+'px'
-        
-      }else{this.$refs.search.$el.children[0].style.top=0}
+          this.search_show=true
+      }else{this.search_show=false}
       if(h<=-915+102){
-        this.$refs.sort.$el.children[0].style.top=-915+102-h+'px'
+         this.sort_show=true
+      }else{this.sort_show=false}
 
-      }else{this.$refs.sort.$el.children[0].style.top=0}
+      if(y>-100&&this.$store.state.restaurant.lock=="开"){
+        this.$store.commit("restaurant/modifyAddressName",{lock:"关"})
+        // console.log(this.$store.state.restaurant.lock)
+        this.forSon++
+      }
     },
     getNew(){
       this.$refs.scroll.refreshDOM()
@@ -78,7 +88,21 @@ export default {
 </script>
 
 <style>
-
+.scroll{
+  overflow: hidden;
+}
+.search_fix{
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+}
+.sort_fix{
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+}
 .location {
   background-image: linear-gradient(90deg, #0af, #0085ff);
   color: #fff;
