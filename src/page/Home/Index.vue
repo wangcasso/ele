@@ -1,6 +1,6 @@
 <template>
     <div>
-      <Scroll :onScroll="fixTop">
+      <Scroll :onScroll="fixTop" class="scroll" ref="scroll">
         
       <!-- 定位信息 -->
         <header class="location" @click="checkPlace()">
@@ -34,7 +34,10 @@
         </div>
         <!--  -->
         <div id="shoplist-title" class="shoplist-title">推荐商家</div>
-        <div class="long"></div>
+        <Sort ref="sort"></Sort>
+          <OptionCard @refresh="getNew"></OptionCard>
+        
+        
       </Scroll>
         <router-view></router-view>
     </div>
@@ -44,11 +47,15 @@
 import SearchArea from "@/components/common/SearchArea";
 import Swiper from "@/components/common/Swiper";
 import Scroll from "@/components/common/Scroll"
+import Sort from "@/components/common/Sort"
+import OptionCard from "@/components/common/OptionCard"
 export default {
   components: {
     SearchArea,
     Swiper,
-    Scroll
+    Scroll,
+    Sort,
+    OptionCard,
   },
   methods:{
     checkPlace(){
@@ -60,15 +67,20 @@ export default {
         this.$refs.search.$el.children[0].style.top=-89-h+'px'
         
       }else{this.$refs.search.$el.children[0].style.top=0}
+      if(h<=-915+102){
+        this.$refs.sort.$el.children[0].style.top=-915+102-h+'px'
+
+      }else{this.$refs.sort.$el.children[0].style.top=0}
+    },
+    getNew(){
+      this.$refs.scroll.refreshDOM()
     }
   }
 };
 </script>
 
 <style>
-.long{
-  height:10000px;
-}
+
 .location {
   background-image: linear-gradient(90deg, #0af, #0085ff);
   color: #fff;

@@ -57,8 +57,10 @@ export default {
         inp:function(a) {
             if(!a){
                 this.show=false
+                clearTimeout(this.timer)
                 return
             }
+            console.log(a)
             clearTimeout(this.timer)
             this.timer = setTimeout(() => {
                 getLocation(a).then((data)=>{

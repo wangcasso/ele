@@ -18,8 +18,14 @@ export default {
             scroll,
         }
     },
+    methods: {
+        refreshDOM(){
+            console.log("过来了")
+            this.scroll.refresh();
+        }
+    },
     mounted() {
-         scroll = new IScroll(this.$refs.page,{
+        this.scroll = new IScroll(this.$refs.page,{
             bounce: false,
             scrollbars: true,
             mouseWheel: true,
@@ -28,8 +34,8 @@ export default {
             probeType:this.onScroll?3:0
         });
 
-        scroll.on('scroll',()=>{
-            this.onScroll(scroll.y)
+        this.scroll.on('scroll',()=>{
+            this.onScroll(this.scroll.y)
         })
     },
 }

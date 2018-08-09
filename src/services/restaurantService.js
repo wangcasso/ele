@@ -1,16 +1,19 @@
+
 import axios from 'axios'
 import API from '../api'
 
-export function getLocation(word='',limit=20,offset=0){
+export function getRsetaurant(limit=20,offset=0){
     return new Promise((resolve,reject)=>{
 
-        axios.get(API.LOCATION_API,{
+        axios.get(API.RESTAURANT_API,{
             params:{
-                keyword:word,
                 offset,
                 limit,
-                latitude:22.625871,
-                longitude:113.83794,
+                latitude:22.625775,
+                longitude:113.837865,
+                extra_filters:'home',
+                rank_id:'',
+                terminal:'h5',
             }
         })
         .then(response=>{
