@@ -46,14 +46,12 @@
 <script>
 import SearchArea from "@/components/common/SearchArea";
 import Swiper from "@/components/common/Swiper";
-import Scroll from "@/components/common/Scroll"
 import Sort from "@/components/common/Sort"
 import OptionCard from "@/components/common/OptionCard"
 export default {
   components: {
     SearchArea,
     Swiper,
-    Scroll,
     Sort,
     OptionCard,
   },

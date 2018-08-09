@@ -60,7 +60,7 @@ export default {
                 clearTimeout(this.timer)
                 return
             }
-            console.log(a)
+            // console.log(a)
             clearTimeout(this.timer)
             this.timer = setTimeout(() => {
                 getLocation(a).then((data)=>{

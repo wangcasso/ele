@@ -2,36 +2,28 @@
     <div class='Swiper'>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" >
+                <div class="swiper-slide" v-for="(page, index) in data" :key='index'>
                     <div class="swiper_box">
-                        <div class="swiper_item" v-for='i in [1,2,3,4,5,6,7,8,9,10]' :key='i'>
-                            <img src="//fuss10.elemecdn.com/7/d8/a867c870b22bc74c87c348b75528djpeg.jpeg?imageMogr/format/webp/thumbnail/!90x90r/gravity/Center/crop/90x90/" alt="">
-                            <span>美食</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" >
-                    <div class="swiper_box">
-                        <div class="swiper_item" v-for='i in [1,2,3,4,5,6,7,8,9,10]' :key='i'>
-                            <img src="//fuss10.elemecdn.com/7/d8/a867c870b22bc74c87c348b75528djpeg.jpeg?imageMogr/format/webp/thumbnail/!90x90r/gravity/Center/crop/90x90/" alt="">
-                            <span>美食</span>
+                        <div class="swiper_item" v-for='i in page' :key='i.id'>
+                            <img :src="i.image_hash|pic(90)" alt="">
+                            <span>{{i.name}}</span>
                         </div>
                     </div>
                 </div>
                 
             </div>
-            
-            
             <div class="swiper-pagination"></div>
          </div>
     </div>
 </template>
 
 <script>
+import {getShopping} from "@/services/shopping"
+
 export default {
     data(){
         return{
-
+            data: []
         }
     },
     mounted() {
@@ -40,8 +32,20 @@ export default {
             
             // 如果需要分页器
             pagination: '.swiper-pagination',
-           
-        })        
+        })
+        getShopping().then((response)=>{
+            let entries = response.data[0].entries;
+            let data = [];
+            while(entries.length > 0){
+                data.push(entries.splice(0, 10));
+            }
+            this.data = data;
+            this.$nextTick(()=>{
+                mySwiper.update();
+                mySwiper.reLoop();
+                mySwiper.slideTo(1, 0);
+            })
+        })    
     },
 }
 </script>
