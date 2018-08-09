@@ -1,7 +1,9 @@
 const state = {
-    username: 'zhangsan',
-    userId: '007',
-    birthYear: '1999'
+    username: '登录/注册',
+    userId: '',
+    birthYear: '1999',
+    src1:'../../../static/img/logo.png',
+    src2:'../../../static/img/aa.png'
 }
 
 const getters = {
@@ -12,9 +14,11 @@ const getters = {
 }
 
 const mutations = {
-    modifyUsername(state, params){
-        console.log('user mutations 触发了');
-        state.username = params.value;
+    modifyAction(state, params){
+        // console.log(this.$store.state.username);
+        state.username = params.b;
+        state.userId = params.a;
+        state.src1=state.src2
     }
 }
 

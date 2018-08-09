@@ -1,15 +1,15 @@
 <template>
 <div class="mine">
     <div class="mine-header">
-    <a href="/">＜</a>
+    <p @click="back()">＜<p>
     <h1>我的</h1>
 </div>
 <div class="mine-login" @click="login()">
  <div class="logo">
-     <img src="../../../static/img/logo.png" alt="">
+     <img :src="$store.state.user.src1" alt="">
  </div>
  <ul>
-     <li><h1>登录/注册</h1></li>
+     <li><h1>{{$store.state.user.username}}</h1></li>
      <li>登录后可以享受优惠</li>
  </ul>
  <a href="#">＞</a>
@@ -40,12 +40,35 @@
 
 <script>
 export default {
+    data(){
+    return{
+        aa:'登录/注册'
+    }
+    },
         methods : {
       login(){
-          this.$router.push({path:"/mine/login"})
-      }
-        }
+         if(!this.$store.state.user.userId){
+              this.$router.push({path:"/mine/login"})
+         }else{
+             console.log(111)
+             this.$router.push({path:"/mine/set"})
+         }
+      },
+       back(){
+           this.$router.back()
+       },
+       listener(){
+           console.log(1)
+       }
+        },
+    
+    created() {
+        // console.log(this.$center);
+        console.log('组件创建了');
+        // 监听事件
+        this.$center.$on('modifyAction', this.listener);
     }
+}
 </script>
 
 <style scopend>
@@ -57,7 +80,8 @@ export default {
      height: 75px;
      width: 100%;
      background:#0085ff;
-     text-align: center
+     text-align: center;
+    
 }
 .mine-header a{
  position:absolute;

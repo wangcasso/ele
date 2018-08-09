@@ -4,21 +4,22 @@
       <router-view/>
     </keep-alive>
     <nav class='tabs'>
-      <router-link class='tab iconfont' :to="{name:'Home'}"><p>&#xe722;</p>
-<p>首页</p>      
+      <router-link class='tab iconfont' :to="{name:'Home'}">
+        <p>&#xe722;</p>
+        <p>首页</p>      
       </router-link>
       <router-link class='tab iconfont' :to="{name:'Discovery'}">
         <p>&#xe60a;</p>
-<p>首页</p>      
+        <p>发现</p>      
       </router-link>
       <router-link class='tab iconfont' :to="{name:'Cartlist'}">
         <p>&#xe606;</p>
-          <p>首页</p>
+        <p>订单</p>
         
       </router-link>
       <router-link class='tab iconfont' :to="{name:'Mine'}">
         <p>&#xe609;</p>
-<p>首页</p>
+        <p>我的</p>
       </router-link>
     </nav>
   </div>
@@ -32,7 +33,7 @@ export default {
 </script>
 
 <style>
-.page{
+.page {
   width: 100%;
   position: absolute;
   top: 0;
@@ -40,10 +41,12 @@ export default {
   bottom: 49px;
   background: #fff;
 }
-.page.subpage{
+.page.subpage {
   bottom: 0;
   z-index: 10;
-  
+}
+.scroll{
+  bottom:100px;
 }
 .tabs {
   position: absolute;
@@ -65,7 +68,10 @@ export default {
   text-align: center;
   font-size: 50px;
 }
-.tab p:nth-child(2){
+.tab p:nth-child(2) {
   font-size: 20px;
+}
+.router-link-active {
+  color: #0089dc;
 }
 </style>

@@ -21,7 +21,9 @@ const getters = {
 // 操作state的事件
 const mutations = {
     modifyUsername(state, params){
-        console.log('root mutations 触发了');
+            state.username = params.b;
+            state.userId = params.a;
+        
     }
 }
 

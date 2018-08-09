@@ -8,7 +8,8 @@ import Cartlist from "@/page/cartlist"
 import Mine from "@/page/mine"
 import ChangeLocation from "@/page/changelocation"
 import Login from "@/page/login"
-
+import Befor from "@/page/beforlogin"
+import Seeet from "@/page/set"
 const routes =  [
     {
       path:'/home',
@@ -28,6 +29,11 @@ const routes =  [
       component:Discovery
     },
     {
+      path:'/bef',
+      name:'Bef',
+      component: Befor
+    },
+    {
       path:'/cartlist',
       name:'Cartlist',
       component:Cartlist
@@ -37,6 +43,11 @@ const routes =  [
       name:'Mine',
       component:Mine,
       children:[
+        {
+          path:'set',
+          name:'Set',
+          component: Seeet
+        },
         {
           path:'login',
           name:'Login',
