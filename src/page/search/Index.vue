@@ -4,25 +4,82 @@
             <div class="backBtn" @click="back()">
                 ＜
             </div>
-            <form class="search_input">
-                <span>O</span> <input type="search" placeholder="输入商家、商品名称" >
-                <button type="submit">搜索</button>
-            </form>
+            <div class="search_input">
+                <span>O</span> <input type="search" placeholder="输入商家、商品名称" ref="input" v-model="inp">
+                <button @click="sendKw()">搜索</button>
+            </div>
         </div>
+        <Sort v-show=!showHis></Sort>
+        <Scroll :class="{top:!showHis==true} " ref="scroll">
+            <historyAndHot @getKw="putInput" v-show=showHis></historyAndHot>
+            <OptionCard v-show=!showHis :keyWord=keyWord @refresh="getNew"></OptionCard>
+        </Scroll>
     </div>
 </template>
 
 <script>
+import historyAndHot from "@/components/common/historyAndHot"
 export default {
-    methods:{
-        back(){
-            this.$router.back()
+    beforeRouteLeave (to, from, next) {
+      this.$store.commit("updateSearch",{intoSearch:false})
+        next()
+    },
+    data(){
+        return{
+            showHis:true,
+            keyWord:'',
+            inp:''
         }
-    }
+    },
+    components:{
+        historyAndHot,
+    },
+    watch:{
+        inp:function(){
+            if(this.inp==''){
+                this.showHis=true
+            }
+        }
+    },
+    methods:{
+        sendKw(){
+            this.keyWord=this.inp
+            this.showHis=false
+            
+        },
+        back(){
+            this.showHis=SVGComponentTransferFunctionElement
+            this.inp=""
+            this.$router.back()
+        },
+        putInput(val,boolean){
+            // console.log(location.search)
+            this.keyWord=this.inp=val
+            this.showHis=boolean
+
+        },
+        getNew(){
+        this.$refs.scroll.refreshDOM()
+        }
+    },
+    activated() {
+        // console.log(this.$store.state.intoSearch)
+  },
 }
 </script>
 
 <style scoped>
+.page{
+    width: 100%;
+  position: absolute;
+  top: 11.733333vw;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+}
+.top{
+    top:22.26666vw;
+}
 .white{
     height:100vh;
     width:100vw;
@@ -34,6 +91,8 @@ export default {
     display: flex;
     position: relative;
     align-items: center;
+    z-index:13;
+    background: #fff;
 }
 .backBtn{
     width: 9.333333vw;

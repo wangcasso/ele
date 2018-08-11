@@ -83,7 +83,11 @@ export default {
     getNew(){
       this.$refs.scroll.refreshDOM()
     }
-  }
+  },
+  activated() {
+        // console.log(this.$store.state.intoSearch)
+    
+  },
 };
 </script>
 

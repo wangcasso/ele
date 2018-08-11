@@ -1,31 +1,35 @@
 <template>
-<transition enter-active-class="slideInRight" leave-active-class="slideOutRight">
-    
-    <div class="page subpage"> 
+<transition enter-active-class="slideInRight" leave-active-class="slideOutRight" >
+    <div class="warp">
         <div class="blue_bar">
             <span @click="back()">〈</span>
             <div>选择收货地址</div>
         </div>
-        <div class="workarea">
-            <div class="city">
-                <span>深圳</span><b class="v"></b>
-            </div>
-            <div class="inputArea">
-                <span>Q</span><input type="search" placeholder="请输入地址"  v-model='inp'>
-            </div>
-        </div>
-        <div class="show" v-if="show">
-            <div class="show_box" v-for="item in adress" :key="item.request_id" @click="choicePlace(item.name)">
-                <div class="address">
-                    <p><span class="AddressCell-2FRCi_0">{{item.name}}</span></p>
-                    <p class="address_detail">{{item.address}}</p>
+        <Scroll class="page subpage" ref='scroll'> 
+            <div class="box">
+                <div class="workarea">
+                    <div class="city">
+                        <span>深圳</span><b class="v"></b>
+                    </div>
+                    <div class="inputArea">
+                        <span>Q</span><input type="search" placeholder="请输入地址"  v-model='inp'>
+                    </div>
                 </div>
-                <div class="far">{{item.distance}}</div>
+                <div class="show" v-if="show">
+                    <div class="show_box" v-for="item in adress" :key="item.request_id" @click="choicePlace(item.name)">
+                        <div class="address">
+                            <p><span class="AddressCell-2FRCi_0">{{item.name}}</span></p>
+                            <p class="address_detail">{{item.address}}</p>
+                        </div>
+                        <div class="far">{{item.distance}}</div>
+                    </div>
+                </div>
             </div>
-
-        </div>
             
+                
+        </Scroll>
     </div>
+    
 </transition>
 
 </template>
@@ -50,22 +54,26 @@ export default {
            this.back()
        }
     },
-    mounted() {
-       
-    },
     watch:{
         inp:function(a) {
             if(!a){
                 this.show=false
+                this.$nextTick(()=>{
+                    this.$refs.scroll.refreshDOM()
+                })
                 clearTimeout(this.timer)
                 return
             }
             // console.log(a)
             clearTimeout(this.timer)
             this.timer = setTimeout(() => {
-                getLocation(a).then((data)=>{
+                getLocation().then((data)=>{
                     this.adress=data.data
                     this.show=true
+                    this.$nextTick(()=>{
+                        this.$refs.scroll.refreshDOM()
+                    })
+                    
                 })
                 
             }, 500);
@@ -79,13 +87,30 @@ export default {
 .slideInRight, .slideOutRight{
     animation-duration: 300ms;
 }
+.warp{
+    background: #fff;
+    height:100vh;
+}
+.page {
+  width: 100%;
+  position: absolute;
+  top: 11.733333vw;
+  left: 0;
+  bottom: 49px;
+  background: #fff;
+}
+.page.subpage {
+  bottom: 0;
+  z-index: 10;
+}
 .blue_bar{
-        position: relative;
+        position: absolute;
     width: 100%;
     color: #fff;
         background-image: linear-gradient(90deg,#0af,#0085ff);
     text-align: center;
     font-size: 24px;
+    z-index: 12;
 }
 .blue_bar span{
     position: absolute;

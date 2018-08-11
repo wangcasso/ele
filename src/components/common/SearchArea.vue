@@ -14,9 +14,11 @@
 export default {
   methods:{
     searchPage(){
+      this.$store.commit("updateSearch",{intoSearch:true})
       this.$router.push({path:"/search"})
     }
-  }
+  },
+  
 };
 </script>
 

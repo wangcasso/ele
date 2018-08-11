@@ -8,21 +8,21 @@ import restaurant from './restaurant.js'
 
 // 全局数据,全局状态
 const state = {
-    a: 1,
-    b: 2
+    intoSearch:false
 }
 // 计算的数据，通过state和其他的getters计算得来的
 // 不能修改，只能通过state和其他的getters的变化而变化
 const getters = {
-    count(state){
-        return state.a+state.b;
-    }
+    
 }
 
 // 操作state的事件
 const mutations = {
     modifyUsername(state, params){
         console.log('root mutations 触发了');
+    },
+    updateSearch(state, params){
+        state.intoSearch=params.intoSearch
     }
 }
 

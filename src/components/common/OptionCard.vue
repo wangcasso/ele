@@ -38,7 +38,7 @@
                     <div class="info_line">
                         <div class="less_money">
                             <span>¥{{item.restaurant.piecewise_agent_fee.rules[0].price}}起送</span>
-                            <span>优惠配送费¥{{item.restaurant.piecewise_agent_fee.rules[0].fee}}</span>
+                            <span>{{item.restaurant.piecewise_agent_fee.tips}}</span>
                         </div>
                         <div class="time_distance">
                             <span>{{item.restaurant.distance|far}}</span>
@@ -61,7 +61,7 @@
                 </span>
                 <div class="lot_activities">
                     <div class="activitiesList">
-                        <div class="actRow" v-for="(i,index) in item.restaurant.activities"  :key="i.id"  v-show="index<item.restaurant.scheme">
+                        <div class="actRow" v-for="(i,index) in item.restaurant.activities"  :key="index"  v-show="index<item.restaurant.scheme">
                             <span class="iconWord" :style="'background:'+'#'+i.icon_color">{{i.icon_name}}</span>
                             <span class="desc">{{i.description}}</span>
                         </div>
@@ -78,16 +78,20 @@
 </template>
 
 <script>
-import {getRsetaurant} from "@/services/restaurantService"
+import {getRsetaurant,getRsetaurantFromKw} from "@/services/restaurantService"
+
 export default {
+    
     props:{
-        getMore:""
+        getMore:"",
+        keyWord:""
     },
     data(){
         return{
             Num:0,
             data:[],
-            remine:this.$store.state.restaurant.lock
+            remine:this.$store.state.restaurant.lock,
+            Num_kw:0,
         }
     },
    
@@ -100,6 +104,7 @@ export default {
             
             
         },
+        //首页的请求
         getMsg(){
             getRsetaurant(this.Num,8).then((response)=>{
             this.data=[...this.data,...response.data.items]
@@ -116,19 +121,71 @@ export default {
             })
             
         })
+        },
+        getMsgFromKw(){
+            getRsetaurantFromKw(this.Num_kw,20,this.keyWord).then((response)=>{
+            // console.log(response)
+            if(!response.data.inside[0])
+                return
+            this.data=[...this.data,...response.data.inside[0].restaurant_with_foods]
+            console.log(this.data)
+            for(let i=this.Num_kw;i<this.Num_kw+20;i++){
+                if(!this.data[i]){
+                    break;
+                }
+                this.data[i].restaurant.scheme=2
+            }
+            this.$nextTick(()=>{
+                this.$emit('refresh')
+                this.Num_kw+=20
+                this.$store.commit("restaurant/modifyAddressName",{lock:"开"})
+                console.log("更新完毕")
+            
+            })
+            
+        })
         }
     },
     watch:{
+        keyWord:function(){
+            this.data={}
+            this.Num_kw=0
+            this.getMsgFromKw()
+        },
         getMore:function(){
             // console.log("监听到了")
-            if(this.$store.state.restaurant.lock=="关"){
+            if(this.$store.state.restaurant.lock=="关"&&this.$store.state.intoSearch==false){
                 this.getMsg()
+            }else if(this.$store.state.restaurant.lock=="关"&&this.$store.state.intoSearch==true){
+                this.getMsgFromKw()
             }
             
         }
     },
-    mounted() {
-        this.getMsg()
+    activated() {
+        if(this.$store.state.intoSearch==false){
+            this.data={}
+            this.Num=0
+            this.getMsg()
+            console.log(false)
+        }else if(this.$store.state.intoSearch==true){
+            this.data={}
+            this.Num_kw=0
+            this.getMsgFromKw()
+            console.log(true)            
+        }
+        console.log("optionCard 激活组件")
+    },
+    deactivated() {
+        console.log("optionCard 失去活力")
+        
+    },
+    created() {
+        console.log("optionCard  创造了")
+    },
+    destroyed() {
+        console.log("optionCard  摧毁了")
+        
     },
 }
 </script>
