@@ -1,9 +1,9 @@
 <template>
     <div class="section">
-        <div class="item" v-for="item in data" :key="item.restaurant.id" >
+        <div class="item" v-for="(item,index) in data" :key="index" >
             <div class="up_shopInfo">
                 <div class="pic">
-                    <img :src="img(item.restaurant.image_path)" alt="">
+                    <img :src="item.restaurant.image_path|pic(130)" alt="">
                 </div>
                 <div class="info_main">
                     <div class="info_line">
@@ -12,7 +12,9 @@
                             <span>{{item.restaurant.name}}</span>
                         </h3>
                         <ul>
-                            <li>广告</li>
+                            <li v-show="item.restaurant.recommend.reason=='广告'">广告</li>
+                            <li v-show="item.restaurant.supports[0]&&item.restaurant.supports[0].icon_name=='保'" class='bao'>保</li>
+
                         </ul>
                     </div>
                     <div class="info_line">
@@ -39,8 +41,8 @@
                             <span>优惠配送费¥{{item.restaurant.piecewise_agent_fee.rules[0].fee}}</span>
                         </div>
                         <div class="time_distance">
-                            <span>751m</span>
-                            <span>23分钟</span>
+                            <span>{{item.restaurant.distance|far}}</span>
+                            <span>{{item.restaurant.order_lead_time}}分钟</span>
                         </div>
                     </div>
                 </div>
@@ -59,13 +61,13 @@
                 </span>
                 <div class="lot_activities">
                     <div class="activitiesList">
-                        <div class="actRow" v-for="(i,index) in item.restaurant.activities" :key="i.id"  v-show="index<item.restaurant.scheme">
+                        <div class="actRow" v-for="(i,index) in item.restaurant.activities"  :key="i.id"  v-show="index<item.restaurant.scheme">
                             <span class="iconWord" :style="'background:'+'#'+i.icon_color">{{i.icon_name}}</span>
                             <span class="desc">{{i.description}}</span>
                         </div>
                         
                     </div>
-                    <div class="activitiesBtn" @click="showAct(item.restaurant.scheme)">
+                    <div class="activitiesBtn" @click="showAct(item)">
                         <span>{{item.restaurant.activities.length}}个活动</span>
                         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjOTk5IiBkPSJNNC41NzcgNS40MjNjLjc5Ljc3IDIuMDczLjc2NyAyLjg1NyAwbDQuMTItNC4wMjZDMTIuMzQ1LjYyNSAxMi4wOSAwIDEwLjk4NSAwSDEuMDI3Qy0uMDc3IDAtLjMzLjYzLjQ1NyAxLjM5N2w0LjEyIDQuMDI2eiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" class="">
                     </div>
@@ -78,49 +80,55 @@
 <script>
 import {getRsetaurant} from "@/services/restaurantService"
 export default {
+    props:{
+        getMore:""
+    },
     data(){
         return{
-            data:{},
+            Num:0,
+            data:[],
+            remine:this.$store.state.restaurant.lock
         }
     },
    
     methods:{
-        img(url){
-            let arr=url.split("")
-            let newUrl=arr[0]+"/"+arr[1]+arr[2]+"/"+url.substr(3)
-            let reg1=/jpeg$/
-            let reg2=/png$/
-            reg1.exec(url)?(newUrl+="."+reg1.exec(url)):(newUrl+="."+reg2.exec(url))
-            newUrl="https://fuss10.elemecdn.com/"+newUrl+"?imageMogr/format/webp/thumbnail/!130x130r/gravity/Center/crop/130x130/"
-            return newUrl
-            console.log(newUrl)
-        },
         showAct(i){
-            if(i==2){
-                i=100
-            }else{
-                i=2
-            }
-            console.log(this.data)
-            
-        }
-    },
-    created() {
-        
-    },
-    mounted() {
-        getRsetaurant().then((response)=>{
-            this.data=response.data.items
-            console.log(this.data)
-            for(let i=0;i<20;i++){
-                this.data[i].restaurant.scheme=2
-            }
-            console.log(response)
+            i.restaurant.scheme==2?i.restaurant.scheme=100:i.restaurant.scheme=2
             this.$nextTick(()=>{
                 this.$emit('refresh')
             })
             
+            
+        },
+        getMsg(){
+            getRsetaurant(this.Num,8).then((response)=>{
+            this.data=[...this.data,...response.data.items]
+            // console.log(this.data)
+            for(let i=this.Num;i<this.Num+8;i++){
+                this.data[i].restaurant.scheme=2
+            }
+            // console.log(response)
+            this.$nextTick(()=>{
+                this.$emit('refresh')
+                this.Num+=8
+                this.$store.commit("restaurant/modifyAddressName",{lock:"开"})
+
+            })
+            
         })
+        }
+    },
+    watch:{
+        getMore:function(){
+            // console.log("监听到了")
+            if(this.$store.state.restaurant.lock=="关"){
+                this.getMsg()
+            }
+            
+        }
+    },
+    mounted() {
+        this.getMsg()
     },
 }
 </script>
@@ -230,6 +238,10 @@ export default {
     font-size: 14px;
     color: #ccc;
     border: .133333vw solid #eee;
+}
+.up_shopInfo .info_line  ul li.bao{
+    font-size: 20px;
+    color: #999;
 }
 .up_shopInfo .info_line .rateStar{
     display: flex;

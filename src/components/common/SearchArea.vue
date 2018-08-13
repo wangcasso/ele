@@ -1,17 +1,23 @@
 <template>
 <div class="search-wrapper">
-    <div class="search">
-    <div class="context">
-        <span>搜索饿了么商家、商品名称</span>
+    <div class="search" @click="searchPage()">
+      <div class="context">
+          <span>搜索饿了么商家、商品名称</span>
 
-    </div>
+      </div>
     </div>
 
 </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods:{
+    searchPage(){
+      this.$router.push({path:"/search"})
+    }
+  }
+};
 </script>
 
 <style>

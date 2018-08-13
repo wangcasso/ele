@@ -56,18 +56,11 @@ export default {
       },
        back(){
            this.$router.back()
-       },
-       listener(){
-           console.log(1)
        }
-        },
+      
+        }
+
     
-    created() {
-        // console.log(this.$center);
-        console.log('组件创建了');
-        // 监听事件
-        this.$center.$on('modifyAction', this.listener);
-    }
 }
 </script>
 
@@ -198,7 +191,6 @@ export default {
     font-size: 30px;
 }
 .mine-bottom a p{
-    display: inline;
     float: right;
 }
 .mine-bottom a:nth-child(1) span{

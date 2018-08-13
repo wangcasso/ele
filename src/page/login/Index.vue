@@ -34,12 +34,6 @@ bb(){
             let obj={ a:zz,b:value}
             this.$store.commit('user/modifyAction', obj);
             this.$router.back()
-        },
-        sendAction(){
-            console.log(this.value);
-           
-            //触发事件
-            this.$center.$emit('modifyAction', this.value);
         }
 }
 
