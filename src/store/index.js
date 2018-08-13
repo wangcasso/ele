@@ -23,6 +23,9 @@ const mutations = {
     },
     updateSearch(state, params){
         state.intoSearch=params.intoSearch
+            state.username = params.b;
+            state.userId = params.a;
+        
     }
 }
 

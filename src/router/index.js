@@ -9,6 +9,8 @@ import Mine from "@/page/mine"
 import ChangeLocation from "@/page/changelocation"
 import Login from "@/page/login"
 import Search from "@/page/search"
+import Befor from "@/page/beforlogin"
+import Seeet from "@/page/set"
 const routes =  [
     {
       path:'/home',
@@ -34,6 +36,11 @@ const routes =  [
       component:Discovery
     },
     {
+      path:'/bef',
+      name:'Bef',
+      component: Befor
+    },
+    {
       path:'/cartlist',
       name:'Cartlist',
       component:Cartlist
@@ -41,12 +48,19 @@ const routes =  [
     {
       path:'/mine',
       name:'Mine',
-      component:Mine
-    },
-    {
-      path:'/login',
-      name:'Login',
-      component: Login
+      component:Mine,
+      children:[
+        {
+          path:'set',
+          name:'Set',
+          component: Seeet
+        },
+        {
+          path:'login',
+          name:'Login',
+          component: Login
+        }
+      ]
     },
     {
       // path: '/',
