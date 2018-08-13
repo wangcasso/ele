@@ -17,7 +17,7 @@ export function getRsetaurant(offset=0,limit=20){
         })
         .then(response=>{
         
-        //   console.log(response);
+           //console.log(response);
         
           resolve(response)
         })

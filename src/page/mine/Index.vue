@@ -55,9 +55,10 @@ export default {
       },
        back(){
            this.$router.back()
-       },
+       }
       
-        },
+        }
+
     
 }
 </script>
@@ -189,7 +190,6 @@ export default {
     font-size: 30px;
 }
 .mine-bottom a p{
-    display: inline;
     float: right;
 }
 .mine-bottom a:nth-child(1) span{

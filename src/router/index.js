@@ -8,10 +8,11 @@ import Cartlist from "@/page/cartlist"
 import Mine from "@/page/mine"
 import ChangeLocation from "@/page/changelocation"
 import Login from "@/page/login"
-import Search from "@/page/search"
 import Befor from "@/page/beforlogin"
 import Seeet from "@/page/set"
-const routes =  [
+import Search from "@/page/search"
+import Right from "@/page/right"
+const routes = [
     {
       path:'/home',
       name:'Home',
@@ -23,6 +24,11 @@ const routes =  [
           component:ChangeLocation
         }
       ]
+    },
+    {
+      path:"/right",
+      name:"Right",
+      component:Right
     },
     {
       path:'/search',

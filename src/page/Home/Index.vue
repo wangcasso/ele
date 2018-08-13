@@ -26,7 +26,7 @@
               <div class="buy">立即抢购 &gt;</div>
               <img src="//fuss10.elemecdn.com/d/d4/16ff085900d62b8d60fa7e9c6b65dpng.png?imageMogr/format/webp/thumbnail/!240x160r/gravity/Center/crop/240x160/" alt="">
             </div>
-            <div class="box_right">
+            <div class="box_right" @click="right()">
               <h3>限量抢购</h3>
               <div class="tip">超值美味 9.9元起</div>
               <div class="buy"><span>946人</span>正在抢 &gt;</div>
@@ -82,6 +82,9 @@ export default {
     },
     getNew(){
       this.$refs.scroll.refreshDOM()
+    },
+    right(){
+      this.$router.push({path:"/right"})
     }
   },
   activated() {
