@@ -12,6 +12,7 @@ import Befor from "@/page/beforlogin"
 import Seeet from "@/page/set"
 import Search from "@/page/search"
 import Right from "@/page/right"
+import XQ from "@/page/xq"
 const routes = [
     {
       path:'/home',
@@ -22,6 +23,11 @@ const routes = [
           path:"place",
           name:"ChangeLocation",
           component:ChangeLocation
+        },
+        {
+          path:"xq",
+          name:"Xq",
+          component:XQ
         }
       ]
     },
@@ -65,7 +71,8 @@ const routes = [
           path:'login',
           name:'Login',
           component: Login
-        }
+        },
+        
       ]
     },
     {

@@ -41,10 +41,13 @@ const SHOPPING_API = "/restapi/shopping/openapi/entries?templates[]=main_templat
 */ 
 const ZZ_API ="/restapi/shopping/v3/flash/foods"
 
+const XIANGQING_API = "/shopping/v2/menu"
+
 
 export default {
     LOCATION_API,
     RESTAURANT_API,
     SHOPPING_API,
-    ZZ_API
+    ZZ_API,
+    XIANGQING_API
 }

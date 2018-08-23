@@ -2,6 +2,7 @@ const state = {
     username: '登录/注册',
     userId: '',
     birthYear: '1999',
+    id:0,
     src1:'../../../static/img/logo.png',
     src2:'../../../static/img/aa.png'
 }
@@ -14,11 +15,16 @@ const getters = {
 }
 
 const mutations = {
-    modifyAction(state, params){
+    modifyAction (state, params){
         // console.log(this.$store.state.username);
         state.username = params.b;
         state.userId = params.a;
         state.src1=state.src2
+    },
+    abcd (state, params){
+        // console.log(this.$store.state.username);
+        state.id = params;
+       
     }
 }
 

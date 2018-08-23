@@ -1,6 +1,6 @@
 <template>
-    <div class="section">
-        <div class="item" v-for="(item,index) in data" :key="index" >
+    <div class="section" >
+        <div class="item" v-for="(item,index) in data" @click="xiangqing(index)" :key="index" >
             <div class="up_shopInfo">
                 <div class="pic">
                     <img :src="item.restaurant.image_path|pic(130)" alt="">
@@ -87,7 +87,9 @@ export default {
         return{
             Num:0,
             data:[],
-            remine:this.$store.state.restaurant.lock
+            remine:this.$store.state.restaurant.lock,
+  
+  obj:0
         }
     },
    
@@ -116,7 +118,14 @@ export default {
             })
             
         })
-        }
+        },
+        xiangqing (e){
+            this.obj=this.data[e].restaurant.id
+            console.log(this.data[e].restaurant.id)
+            this.$store.commit('user/abcd', this.obj);
+            this.$router.push({path:"/home/xq"})
+
+            }
     },
     watch:{
         getMore:function(){

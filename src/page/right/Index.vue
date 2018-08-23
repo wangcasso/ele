@@ -7,7 +7,7 @@
     <button  :class="{b3:four==2}" @click="b3()">下午茶</button>
     <button  :class="{b4:four==3}" @click="b4()">晚餐</button>
     </div>
-    <div class="content" v-if="four==0">
+    <div class="content" v-if="four==0" >
     <span class="item" v-for="(item,index) in data " :key="index"> 
         {{item.name}}
     </span>
@@ -41,7 +41,8 @@ export default {
     },
     methods:{
         b1(){
-           this.four=0 
+           this.four=0 ;
+           this.Zao()
         },
          b2(){
             this.four=1 

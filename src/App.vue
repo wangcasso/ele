@@ -74,5 +74,14 @@ export default {
 }
 .router-link-active {
   color: #0089dc;
+  animation: aab 2s
 }
+@keyframes aab {
+    0%   {background: red; font-size: 60px}
+    25%  {background: yellow; font-size: 80px}
+    50%  {background: blue;font-size: 100px}
+    75%  {background: green; font-size: 80px}
+    100% {background: red;  font-size: 60px}
+}
+
 </style>
